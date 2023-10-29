@@ -1,7 +1,6 @@
 import React from 'react';
-import { Content, Item, Link, MovieList } from './MoviesList.styled';
+import { Item, Link, MovieList } from './MoviesList.styled';
 import { useLocation } from 'react-router-dom';
-import { HiChartBar } from 'react-icons/hi';
 
 const baseURL = 'https://image.tmdb.org/t/p/w220_and_h330_face';
 const defaultImg =
@@ -13,7 +12,6 @@ const MoviesList = ({ movies }) => {
   return (
     <MovieList>
       {movies.map(({ title, name, id, poster_path, vote_average }) => {
-        // {const year = release_date.split('-');}
         return (
           <Item key={id}>
             <Link to={`/movies/${id}`} state={{ from: location }}>
@@ -22,16 +20,6 @@ const MoviesList = ({ movies }) => {
               ) : (
                 <img src={defaultImg} alt={name} width={200}></img>
               )}
-              <Content>
-                <p>
-                  {title}
-                  {name}
-                </p>
-                <div>
-                  <HiChartBar size={20} />
-                  {Number(vote_average).toFixed(1)}
-                </div>
-              </Content>
             </Link>
           </Item>
         );

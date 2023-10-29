@@ -1,12 +1,12 @@
-import React, { Suspense, useEffect, useRef, useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import fetchMovies from 'api/fetchMovies';
 import { BackLink } from 'components/BackLink/BackLink';
 import {
   AboutWrapper,
   MovieImg,
   MoviesDetailsWrapper,
 } from './MoviesDetails.styled';
+import fetchMovies from 'service/fetchMovies';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 const baseURL = 'https://image.tmdb.org/t/p/w500';
 const defaultImg =
@@ -44,6 +44,8 @@ const MoviesDetails = () => {
         )}
         <div>
           <h2>{movies.title}</h2>
+          <p>User score: {Number(movies.vote_average).toFixed(1)}</p>
+          <h3>Overview</h3>
           <p>{movies.overview}</p>
         </div>
       </MoviesDetailsWrapper>

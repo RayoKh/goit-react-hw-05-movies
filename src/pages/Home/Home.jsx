@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import fetchMovies from '../../api/fetchMovies';
+import fetchMovies from '../../service/fetchMovies';
 import MoviesList from 'components/MoviesList/MoviesList';
 
 function Home() {

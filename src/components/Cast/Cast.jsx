@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import fetchMovies from 'service/fetchMovies';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import fetchMovies from 'api/fetchMovies';
 
 const baseURL = 'https://image.tmdb.org/t/p/w200';
 const defaultImg =

@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 const Home = lazy(() => import('pages/Home/Home'));
 const Movies = lazy(() => import('pages/Movies/Movies'));
-const MoviesDetails = lazy(() => import('pages/MoviesDetails/MoviesDetails'));
+const MoviesDetails = lazy(() => import('pages/MovieDetails/MoviesDetails'));
 const Review = lazy(() => import('components/Review/Review'));
 const Cast = lazy(() => import('components/Cast/Cast'));
 const SharedLayout = lazy(() => import('components/SharedLayout/SharedLayout'));
