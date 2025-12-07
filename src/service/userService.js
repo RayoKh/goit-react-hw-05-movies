@@ -1,4 +1,9 @@
 const STORAGE_KEY = 'app:user';
+export const USER_CHANGE_EVENT = 'user:change';
+
+const notifyUserChange = user => {
+  window.dispatchEvent(new CustomEvent(USER_CHANGE_EVENT, { detail: user }));
+};
 
 const readStoredUser = () => {
   try {
@@ -16,6 +21,7 @@ const persistUser = user => {
   } catch (error) {
     console.error('Failed to save user to storage', error);
   }
+  notifyUserChange(user);
   return user;
 };
 
@@ -51,6 +57,7 @@ export const loginUser = async ({ email, password }) => {
     throw new Error('Невірний email або пароль.');
   }
 
+  notifyUserChange(existingUser);
   return existingUser;
 };
 
@@ -71,4 +78,5 @@ export const updateUser = async updates => {
 
 export const logoutUser = async () => {
   localStorage.removeItem(STORAGE_KEY);
+  notifyUserChange(null);
 };

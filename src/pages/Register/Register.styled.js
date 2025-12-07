@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const AuthPage = styled.div`
   max-width: 480px;
@@ -48,4 +49,18 @@ export const SubmitButton = styled.button`
 export const SupportText = styled.p`
   margin-top: 12px;
   color: #2c2c2c;
+`;
+
+export const SecondaryButton = styled(Link)`
+  display: inline-block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #f1f3f6;
+  color: #212121;
+  font-size: 15px;
+  font-weight: 700;
 `;

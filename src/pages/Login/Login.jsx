@@ -6,6 +6,7 @@ import {
   AuthInput,
   AuthPage,
   AuthTitle,
+  SecondaryButton,
   SubmitButton,
   SupportText,
 } from './Login.styled';
@@ -58,6 +59,7 @@ const Login = () => {
             />
           </AuthField>
           <SubmitButton type="submit">Увійти</SubmitButton>
+          <SecondaryButton to="/register">в мене немає аккаунту</SecondaryButton>
         </form>
         {status && <SupportText>{status}</SupportText>}
       </AuthCard>
