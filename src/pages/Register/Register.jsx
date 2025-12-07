@@ -6,6 +6,7 @@ import {
   AuthInput,
   AuthPage,
   AuthTitle,
+  SecondaryButton,
   SubmitButton,
   SupportText,
 } from './Register.styled';
@@ -69,6 +70,7 @@ const Register = () => {
             />
           </AuthField>
           <SubmitButton type="submit">Зареєструватися</SubmitButton>
+          <SecondaryButton to="/login">в мене вже є аккаунт</SecondaryButton>
         </form>
         {status && <SupportText>{status}</SupportText>}
       </AuthCard>
