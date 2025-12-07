@@ -8,6 +8,8 @@ const Review = lazy(() => import('components/Review/Review'));
 const Cast = lazy(() => import('components/Cast/Cast'));
 const SharedLayout = lazy(() => import('components/SharedLayout/SharedLayout'));
 const Account = lazy(() => import('pages/Account/Account'));
+const Register = lazy(() => import('pages/Register/Register'));
+const Login = lazy(() => import('pages/Login/Login'));
 
 export const App = () => {
   return (
@@ -19,6 +21,8 @@ export const App = () => {
           <Route path="review" element={<Review />} />
           <Route path="cast" element={<Cast />} />
         </Route>
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/account" element={<Account />} />
       </Route>
     </Routes>
