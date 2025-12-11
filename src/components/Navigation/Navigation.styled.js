@@ -5,7 +5,8 @@ export const NavBar = styled.nav`
   display: flex;
   align-items: center;
   gap: 12px;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
 `;
 
 export const NavLinks = styled.div`
