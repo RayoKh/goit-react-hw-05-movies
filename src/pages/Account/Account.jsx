@@ -7,18 +7,49 @@ import {
 } from 'service/userService';
 import {
   AccountPageWrapper,
+  AdaptationGroup,
   Button,
   Card,
+  Checkbox,
+  CheckboxLabel,
   Divider,
   Field,
+  GroupTitle,
   Input,
   Message,
   Title,
 } from './Account.styled';
 
+const getDefaultAdaptationState = () => ({
+  visual: [],
+  motor: [],
+  cognitive: [],
+});
+
+const adaptationOptions = {
+  visual: [
+    { id: 'high-contrast', label: 'Висока контрастність' },
+    { id: 'large-text', label: 'Збільшений розмір шрифту' },
+    { id: 'softer-colors', label: 'Мʼякші кольори' },
+  ],
+  motor: [
+    { id: 'keyboard-navigation', label: 'Навігація з клавіатури' },
+    { id: 'large-controls', label: 'Збільшені елементи керування' },
+    { id: 'reduced-movement', label: 'Мінімум жестів та рухів' },
+  ],
+  cognitive: [
+    { id: 'focus-mode', label: 'Режим фокусування' },
+    { id: 'simplified-layout', label: 'Спрощені підказки та інтерфейс' },
+    { id: 'reading-aids', label: 'Покращення читабельності тексту' },
+  ],
+};
+
 const Account = () => {
   const [user, setUser] = useState(() => getCurrentUser());
   const [status, setStatus] = useState('');
+  const [adaptationSettings, setAdaptationSettings] = useState(
+    getDefaultAdaptationState
+  );
 
   const [updateForm, setUpdateForm] = useState({
     name: user?.name || '',
@@ -68,6 +99,21 @@ const Account = () => {
     await logoutUser();
     setUser(null);
     setStatus('Ви вийшли з облікового запису.');
+  };
+
+  const handleToggleAdaptation = (group, optionId) => {
+    setAdaptationSettings(prev => {
+      const selected = prev[group];
+      const updatedGroup = selected.includes(optionId)
+        ? selected.filter(id => id !== optionId)
+        : [...selected, optionId];
+
+      return { ...prev, [group]: updatedGroup };
+    });
+  };
+
+  const handleResetAdaptations = () => {
+    setAdaptationSettings(getDefaultAdaptationState());
   };
 
   const lastUpdated = useMemo(
@@ -126,6 +172,52 @@ const Account = () => {
               {lastUpdated ? ` (оновлено ${lastUpdated})` : null}
             </Message>
           )}
+        </Card>
+
+        <Card>
+          <Title>Параметри адаптації</Title>
+          <AdaptationGroup>
+            <GroupTitle>Візуальні налаштування</GroupTitle>
+            {adaptationOptions.visual.map(option => (
+              <CheckboxLabel key={option.id}>
+                <Checkbox
+                  checked={adaptationSettings.visual.includes(option.id)}
+                  onChange={() => handleToggleAdaptation('visual', option.id)}
+                />
+                {option.label}
+              </CheckboxLabel>
+            ))}
+          </AdaptationGroup>
+
+          <AdaptationGroup>
+            <GroupTitle>Налаштування моторної доступності</GroupTitle>
+            {adaptationOptions.motor.map(option => (
+              <CheckboxLabel key={option.id}>
+                <Checkbox
+                  checked={adaptationSettings.motor.includes(option.id)}
+                  onChange={() => handleToggleAdaptation('motor', option.id)}
+                />
+                {option.label}
+              </CheckboxLabel>
+            ))}
+          </AdaptationGroup>
+
+          <AdaptationGroup>
+            <GroupTitle>Когнітивна адаптація</GroupTitle>
+            {adaptationOptions.cognitive.map(option => (
+              <CheckboxLabel key={option.id}>
+                <Checkbox
+                  checked={adaptationSettings.cognitive.includes(option.id)}
+                  onChange={() => handleToggleAdaptation('cognitive', option.id)}
+                />
+                {option.label}
+              </CheckboxLabel>
+            ))}
+          </AdaptationGroup>
+
+          <Button type="button" onClick={handleResetAdaptations}>
+            Скинути налаштування адаптації
+          </Button>
         </Card>
       </AccountPageWrapper>
 
