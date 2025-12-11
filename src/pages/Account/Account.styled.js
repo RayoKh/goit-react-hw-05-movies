@@ -18,6 +18,11 @@ export const Title = styled.h2`
   margin-bottom: 12px;
 `;
 
+export const GroupTitle = styled.h3`
+  margin: 0 0 8px;
+  font-size: 16px;
+`;
+
 export const Field = styled.label`
   display: flex;
   flex-direction: column;
@@ -56,4 +61,25 @@ export const Divider = styled.hr`
   border: none;
   border-top: 1px solid #dcdcdc;
   margin: 16px 0;
+`;
+
+export const AdaptationGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+`;
+
+export const CheckboxLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+`;
+
+export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
+  width: 18px;
+  height: 18px;
+  accent-color: #222;
+  cursor: pointer;
 `;
