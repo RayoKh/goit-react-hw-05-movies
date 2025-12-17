@@ -17,21 +17,24 @@ import {
   GroupTitle,
   Input,
   Message,
+  OptionDescription,
+  OptionTitle,
+  Radio,
+  RadioLabel,
   Title,
 } from './Account.styled';
 
 const getDefaultAdaptationState = () => ({
-  visual: [],
+  visual: {
+    fontScale: 'normal',
+    highContrast: false,
+    reducedAnimations: false,
+  },
   motor: [],
   cognitive: [],
 });
 
 const adaptationOptions = {
-  visual: [
-    { id: 'high-contrast', label: 'Висока контрастність' },
-    { id: 'large-text', label: 'Збільшений розмір шрифту' },
-    { id: 'softer-colors', label: 'Мʼякші кольори' },
-  ],
   motor: [
     { id: 'keyboard-navigation', label: 'Навігація з клавіатури' },
     { id: 'large-controls', label: 'Збільшені елементи керування' },
@@ -99,6 +102,23 @@ const Account = () => {
     await logoutUser();
     setUser(null);
     setStatus('Ви вийшли з облікового запису.');
+  };
+
+  const handleToggleVisual = settingName => {
+    setAdaptationSettings(prev => ({
+      ...prev,
+      visual: {
+        ...prev.visual,
+        [settingName]: !prev.visual[settingName],
+      },
+    }));
+  };
+
+  const handleFontScaleChange = fontScale => {
+    setAdaptationSettings(prev => ({
+      ...prev,
+      visual: { ...prev.visual, fontScale },
+    }));
   };
 
   const handleToggleAdaptation = (group, optionId) => {
@@ -178,15 +198,64 @@ const Account = () => {
           <Title>Параметри адаптації</Title>
           <AdaptationGroup>
             <GroupTitle>Візуальні налаштування</GroupTitle>
-            {adaptationOptions.visual.map(option => (
-              <CheckboxLabel key={option.id}>
-                <Checkbox
-                  checked={adaptationSettings.visual.includes(option.id)}
-                  onChange={() => handleToggleAdaptation('visual', option.id)}
-                />
-                {option.label}
-              </CheckboxLabel>
-            ))}
+            <OptionTitle>Масштабування шрифту</OptionTitle>
+            <OptionDescription>
+              Збільшення шрифту здійснюється через вибір одного з трьох варіантів
+              масштабу. Після зміни інтерфейс автоматично перераховує стилі з
+              урахуванням нового масштабу.
+            </OptionDescription>
+            <RadioLabel>
+              <Radio
+                name="font-scale"
+                checked={adaptationSettings.visual.fontScale === 'normal'}
+                onChange={() => handleFontScaleChange('normal')}
+              />
+              Звичайний
+            </RadioLabel>
+            <RadioLabel>
+              <Radio
+                name="font-scale"
+                checked={adaptationSettings.visual.fontScale === 'increased'}
+                onChange={() => handleFontScaleChange('increased')}
+              />
+              Збільшений
+            </RadioLabel>
+            <RadioLabel>
+              <Radio
+                name="font-scale"
+                checked={adaptationSettings.visual.fontScale === 'large'}
+                onChange={() => handleFontScaleChange('large')}
+              />
+              Великий
+            </RadioLabel>
+
+            <OptionTitle>Контрастність теми</OptionTitle>
+            <OptionDescription>
+              Підвищення контрастності активує висококонтрастну тему, у якій
+              кольорові елементи замінюються чорнобілими, а текст стає максимально
+              читабельним.
+            </OptionDescription>
+            <CheckboxLabel>
+              <Checkbox
+                checked={adaptationSettings.visual.highContrast}
+                onChange={() => handleToggleVisual('highContrast')}
+              />
+              Висококонтрастна тема
+            </CheckboxLabel>
+
+            <OptionTitle>Зменшення анімацій</OptionTitle>
+            <OptionDescription>
+              Функція зменшення анімацій корисна для користувачів з когнітивною
+              чутливістю та активує режим плавної взаємодії без динамічних
+              ефектів.
+            </OptionDescription>
+            <CheckboxLabel>
+              <Checkbox
+                checked={adaptationSettings.visual.reducedAnimations}
+                onChange={() => handleToggleVisual('reducedAnimations')}
+              />
+              Режим без зайвих анімацій
+            </CheckboxLabel>
           </AdaptationGroup>
 
           <AdaptationGroup>
