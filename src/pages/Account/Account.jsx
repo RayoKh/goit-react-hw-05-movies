@@ -24,15 +24,52 @@ import {
   Title,
 } from './Account.styled';
 
+const ADAPTATION_STORAGE_KEY = 'app:adaptation-settings';
+
 const getDefaultAdaptationState = () => ({
   visual: {
     fontScale: 'normal',
     highContrast: false,
-    reducedAnimations: false,
   },
   motor: [],
   cognitive: [],
 });
+
+const readStoredAdaptationSettings = () => {
+  try {
+    const storedValue = localStorage.getItem(ADAPTATION_STORAGE_KEY);
+    return storedValue ? JSON.parse(storedValue) : null;
+  } catch (error) {
+    console.error('Не вдалося завантажити налаштування адаптації', error);
+    return null;
+  }
+};
+
+const persistAdaptationSettings = settings => {
+  try {
+    localStorage.setItem(ADAPTATION_STORAGE_KEY, JSON.stringify(settings));
+  } catch (error) {
+    console.error('Не вдалося зберегти налаштування адаптації', error);
+  }
+};
+
+const getInitialAdaptationState = () => {
+  const stored = readStoredAdaptationSettings();
+  const defaults = getDefaultAdaptationState();
+
+  if (!stored) {
+    return defaults;
+  }
+
+  return {
+    visual: {
+      fontScale: stored.visual?.fontScale || defaults.visual.fontScale,
+      highContrast: Boolean(stored.visual?.highContrast),
+    },
+    motor: Array.isArray(stored.motor) ? stored.motor : defaults.motor,
+    cognitive: Array.isArray(stored.cognitive) ? stored.cognitive : defaults.cognitive,
+  };
+};
 
 const adaptationOptions = {
   motor: [
@@ -51,7 +88,7 @@ const Account = () => {
   const [user, setUser] = useState(() => getCurrentUser());
   const [status, setStatus] = useState('');
   const [adaptationSettings, setAdaptationSettings] = useState(
-    getDefaultAdaptationState
+    getInitialAdaptationState
   );
 
   const [updateForm, setUpdateForm] = useState({
@@ -75,6 +112,10 @@ const Account = () => {
 
     return () => window.removeEventListener(USER_CHANGE_EVENT, handleUserChange);
   }, []);
+
+  useEffect(() => {
+    persistAdaptationSettings(adaptationSettings);
+  }, [adaptationSettings]);
 
   const resetStatus = () => setStatus('');
 
@@ -241,20 +282,6 @@ const Account = () => {
                 onChange={() => handleToggleVisual('highContrast')}
               />
               Висококонтрастна тема
-            </CheckboxLabel>
-
-            <OptionTitle>Зменшення анімацій</OptionTitle>
-            <OptionDescription>
-              Функція зменшення анімацій корисна для користувачів з когнітивною
-              чутливістю та активує режим плавної взаємодії без динамічних
-              ефектів.
-            </OptionDescription>
-            <CheckboxLabel>
-              <Checkbox
-                checked={adaptationSettings.visual.reducedAnimations}
-                onChange={() => handleToggleVisual('reducedAnimations')}
-              />
-              Режим без зайвих анімацій
             </CheckboxLabel>
           </AdaptationGroup>
 
