@@ -83,3 +83,30 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
   accent-color: #222;
   cursor: pointer;
 `;
+
+export const OptionTitle = styled.h4`
+  margin: 8px 0 4px;
+  font-size: 15px;
+`;
+
+export const OptionDescription = styled.p`
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: #4a4a4a;
+  line-height: 1.4;
+`;
+
+export const RadioLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  cursor: pointer;
+`;
+
+export const Radio = styled.input.attrs({ type: 'radio' })`
+  width: 18px;
+  height: 18px;
+  accent-color: #222;
+  cursor: pointer;
+`;
