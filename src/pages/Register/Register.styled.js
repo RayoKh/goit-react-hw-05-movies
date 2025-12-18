@@ -16,7 +16,7 @@ export const AuthCard = styled.section`
 
 export const AuthTitle = styled.h1`
   margin: 0 0 16px;
-  font-size: 28px;
+  font-size: calc(28px * var(--font-scale, 1));
 `;
 
 export const AuthField = styled.label`
@@ -31,7 +31,7 @@ export const AuthInput = styled.input`
   padding: 10px 12px;
   border: 1px solid #cfd5e0;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: calc(16px * var(--font-scale, 1));
 `;
 
 export const SubmitButton = styled.button`
@@ -41,7 +41,7 @@ export const SubmitButton = styled.button`
   border-radius: 10px;
   background-color: #212121;
   color: #fff;
-  font-size: 16px;
+  font-size: calc(16px * var(--font-scale, 1));
   font-weight: 700;
   cursor: pointer;
 `;
@@ -61,6 +61,6 @@ export const SecondaryButton = styled(Link)`
   text-decoration: none;
   background-color: #f1f3f6;
   color: #212121;
-  font-size: 15px;
+  font-size: calc(15px * var(--font-scale, 1));
   font-weight: 700;
 `;
