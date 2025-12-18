@@ -20,7 +20,7 @@ export const Title = styled.h2`
 
 export const GroupTitle = styled.h3`
   margin: 0 0 8px;
-  font-size: 16px;
+  font-size: calc(16px * var(--font-scale, 1));
 `;
 
 export const Field = styled.label`
@@ -86,12 +86,12 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
 
 export const OptionTitle = styled.h4`
   margin: 8px 0 4px;
-  font-size: 15px;
+  font-size: calc(15px * var(--font-scale, 1));
 `;
 
 export const OptionDescription = styled.p`
   margin: 0 0 6px;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-scale, 1));
   color: #4a4a4a;
   line-height: 1.4;
 `;

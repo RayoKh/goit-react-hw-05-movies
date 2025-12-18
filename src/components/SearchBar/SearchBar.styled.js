@@ -31,7 +31,7 @@ export const SearchInput = styled.input`
   display: inline-block;
   width: 100%;
   font: inherit;
-  font-size: 20px;
+  font-size: calc(20px * var(--font-scale, 1));
   border: none;
   outline: none;
   padding-left: 8px;
