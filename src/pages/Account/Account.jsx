@@ -117,6 +117,14 @@ const Account = () => {
     persistAdaptationSettings(adaptationSettings);
   }, [adaptationSettings]);
 
+  useEffect(() => {
+    const { fontScale } = adaptationSettings.visual;
+    const scaleMultiplier =
+      fontScale === 'increased' ? 1.25 : fontScale === 'large' ? 1.5 : 1;
+
+    document.documentElement.style.setProperty('--font-scale', scaleMultiplier);
+  }, [adaptationSettings.visual.fontScale]);
+
   const resetStatus = () => setStatus('');
 
   const handleUpdateChange = ({ target: { name, value } }) => {
